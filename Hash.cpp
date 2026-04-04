@@ -1,4 +1,3 @@
-#include <chrono>
 #include <string>
 #include <vector>
 #include <iomanip>
@@ -7,7 +6,6 @@
 #include <iostream>
 
 int main(int argc, char* argv[]) {
-    auto Start = std::chrono::steady_clock::now();
     if (argc < 2) {
         std::cerr << "\033[1;31mUsage: " << argv[0] << " <file path>\033[0m" << '\n';
         return 1;
@@ -35,11 +33,8 @@ int main(int argc, char* argv[]) {
     }
     File.close();
     for (uint8_t B : HashArray) {
-        std::cout << std::hex << std::setw(2) << std::setfill('0') << "\033[1;35m" << static_cast<int>(B) << "\033[0m";
+        std::cout << std::hex << std::setw(2) << std::setfill('0') << static_cast<int>(B);
     }
     std::cout << '\n' << std::dec;
-    auto End = std::chrono::steady_clock::now();
-    auto Duration = std::chrono::duration_cast<std::chrono::microseconds>(End - Start);
-    std::cout << "\033[1;33mExecution time: " << std::chrono::duration_cast<std::chrono::milliseconds>(Duration).count() << " ms (or " <<  std::chrono::duration_cast<std::chrono::seconds>(Duration).count() << " s)\033[0m\n";
     return 0;
 }
