@@ -27,8 +27,8 @@ int main(int argc, char* argv[]) {
         std::streamsize BytesRead = File.gcount();
         for (std::streamsize i = 0; i < BytesRead; i++) {
             uint8_t ByteValue = static_cast<uint8_t>(BufferChunk[i]);
-            ArrayIndex = (ArrayIndex + ByteValue) % HashSize;
-            HashArray[ArrayIndex++] ^= ByteValue;
+            ArrayIndex = (ArrayIndex + ByteValue + i) % HashSize;
+            HashArray[ArrayIndex] ^= (ByteValue * 31);
         }
     }
     File.close();
